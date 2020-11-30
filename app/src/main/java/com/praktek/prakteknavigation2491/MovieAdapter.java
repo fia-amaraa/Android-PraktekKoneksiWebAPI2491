@@ -3,10 +3,14 @@ package com.praktek.prakteknavigation2491;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.praktek.prakteknavigation2491.model.Movie;
 
 import java.util.ArrayList;
 
@@ -30,7 +34,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ListViewHold
         Movie movie = listMovie.get(position);
 
         holder.txtTitle.setText(movie.getTitle());
-        holder.txtYear.setText(movie.getYear());
+        holder.txtYear.setText(movie.getReleaseDate());
+        holder.txtOverview.setText(movie.getOverview());
+
+        Glide.with(holder.itemView)
+                .load("https://image.tmdb.org/t/p/w200/"+movie.getPosterPath())
+                .into(holder.imgPoster);
     }
 
     @Override
@@ -41,12 +50,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ListViewHold
     public class ListViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
         TextView txtYear;
+        TextView txtOverview;
+        ImageView imgPoster;
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtYear = itemView.findViewById(R.id.txtYear);
+            txtOverview = itemView.findViewById(R.id.txtOverview);
+            imgPoster = itemView.findViewById(R.id.imgPoster);
         }
     }
 }
